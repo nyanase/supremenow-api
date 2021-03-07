@@ -60,6 +60,10 @@ const caseSchema = new mongoose.Schema({
   decided: {
     type: Date,
     default: null
+  },
+  year: {
+    type: String,
+    required: true
   }
 })
 

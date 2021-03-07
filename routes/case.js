@@ -12,8 +12,16 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/:docket', getCase, async (req, res) => {
+router.get('/docket/:docket', getCase, async (req, res) => {
   res.json(res.theCase);
+});
+
+router.get('/year/:year', getCasesByYear, async (req, res) => {
+  res.json(res.cases);
+});
+
+router.get('/active', getActiveCases, async (req, res) => {
+  res.json(res.cases);
 });
 
 router.post('/', async (req, res) => {
@@ -33,6 +41,7 @@ router.post('/', async (req, res) => {
     description: req.body.description,
     facts: req.body.facts,
     question: req.body.question,
+    year: req.body.year
   });
   try {
     const savedCase = await newCase.save();
@@ -111,5 +120,36 @@ async function getCase(req, res, next) {
   res.theCase = theCase 
   next()
 }
+
+async function getCasesByYear(req, res, next) {
+  let cases
+  try {
+    cases = await Case.find({'year': req.params.year})
+    if (cases == null) {
+      return res.status(404).json({ message: 'Cannot find cases' })
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err })
+  }
+
+  res.cases = cases 
+  next()
+}
+
+async function getActiveCases(req, res, next) {
+  let cases
+  try {
+    cases = await Case.find({'decided': null})
+    if (cases == null) {
+      return res.status(404).json({ message: 'Cannot find cases' })
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err })
+  }
+
+  res.cases = cases 
+  next()
+}
+
 
 module.exports = router;
