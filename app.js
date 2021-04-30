@@ -18,6 +18,14 @@ app.get("/", (req, res) => {
   res.send("We are on home");
 });
 
+app.get("/link", (req, res) => {
+  res.send("Specify docket number");
+});
+
+app.get("/link/:docket", (req, res) => {
+  res.send("hola");
+});
+
 // apple app site association
 app.get("/apple-app-site-association", (req, res) => {
   res.header("Content-Type", "application/json");
@@ -27,7 +35,7 @@ app.get("/apple-app-site-association", (req, res) => {
       details: [
         {
           appID: "NT25M6QA49.com.SupremeNow.SupremeNow",
-          paths: ["*"],
+          paths: ["/link/*"],
         },
       ],
     },
