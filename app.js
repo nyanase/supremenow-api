@@ -5,6 +5,7 @@ require("dotenv/config");
 
 const casesRoutes = require("./routes/case");
 const articlesRoutes = require("./routes/article");
+const timerCheckerRoutes = require("./routes/timerChecker");
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.use(bodyParser.json());
 app.use("/cases", casesRoutes);
 
 app.use("/articles", articlesRoutes);
+
+app.use("/timer-checker", timerCheckerRoutes);
 
 app.get("/", (req, res) => {
   res.send("We are on home");
