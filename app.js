@@ -19,11 +19,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/link", (req, res) => {
-  res.send("Specify docket number");
+  res.redirect("https://apps.apple.com/us/app/supremenow/id1560924187");
 });
 
 app.get("/link/:docket", (req, res) => {
-  res.send("hola");
+  res.redirect("https://apps.apple.com/us/app/supremenow/id1560924187");
 });
 
 // apple app site association
